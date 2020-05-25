@@ -10,10 +10,10 @@ export class AuthService {
   login(credentials) {
    return this.http.post('http://localhost:3000/api/users/login',
       credentials).map( response => {
-        console.log("Token: " + response.json().token);
-        let result = response.json().token;
-        if( result && result.token) {
-          localStorage.setItem("token", result.token)
+        const result = response.json();
+        if ( result && result.token) {
+          console.log('Token: ' + response.json().token);
+          localStorage.setItem('token', result.token)
           return true
         }
 
@@ -22,6 +22,7 @@ export class AuthService {
   }
 
   logout() {
+    localStorage.removeItem("token");
   }
 
   isLoggedIn() {
