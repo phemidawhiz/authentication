@@ -1,3 +1,4 @@
+import { JwtHelper, tokenNotExpired } from 'angular2-jwt';
 import { Injectable } from '@angular/core';
 import { Http } from '@angular/http';
 import 'rxjs/add/operator/map';
@@ -22,11 +23,22 @@ export class AuthService {
   }
 
   logout() {
-    localStorage.removeItem("token");
+    localStorage.removeItem('token');
   }
 
   isLoggedIn() {
-    return false;
+    return tokenNotExpired(); // Angular short cut.
+
+    // WHAT IS REALLY HAPPENING UNDER THE HOOD.
+    /* const jwtHelper = new JwtHelper();
+    const token = localStorage.getItem('token');
+    if (!token) {
+      return false;
+    }
+    let expirationDate = jwtHelper.getTokenExpirationDate(token);
+    let isExpired = jwtHelper.isTokenExpired(token);
+    console.log("Token expiration date: ", expirationDate);
+    return !isExpired; */
   }
 }
 
