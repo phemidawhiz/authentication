@@ -47,9 +47,9 @@ export class AuthService {
       return null;
     }
 
-    const role = new JwtHelper().decodeToken(token).result.class;
+    const userData = new JwtHelper().decodeToken(token).result;
 
-    return role;
+    return userData;
   }
 }
 
