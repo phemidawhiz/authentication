@@ -40,5 +40,16 @@ export class AuthService {
     console.log("Token expiration date: ", expirationDate);
     return !isExpired; */
   }
+
+  get currentUser() {
+    const token = localStorage.getItem('token');
+    if (!token) {
+      return null;
+    }
+
+    const role = new JwtHelper().decodeToken(token).result.class;
+
+    return role;
+  }
 }
 
