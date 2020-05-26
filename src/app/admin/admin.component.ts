@@ -7,12 +7,12 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./admin.component.css']
 })
 export class AdminComponent implements OnInit {
-  orders: any[];
+  users: any[];
 
   constructor(private orderService: OrderService) { }
 
   ngOnInit() {
-    this.orderService.getOrders()
-      .subscribe(orders => this.orders = orders);
+    this.orderService.getUsers()
+      .subscribe(response => this.users = response);
   }
 }
