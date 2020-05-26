@@ -17,8 +17,12 @@ export class LoginComponent {
 
   signIn(credentials) {
     this.authService.login(credentials)
-      .subscribe(result => {
-        if (result) {
+      .subscribe(response => {
+        const result = response.json();
+        console.log(result);
+        if (result && result.token) {
+          console.log('Token: ' + result.token);
+          localStorage.setItem('token', result.token)
           const returnUrl = this.route.snapshot.queryParamMap.get('returnUrl');
           this.router.navigate([ returnUrl || '/']);
         } else {

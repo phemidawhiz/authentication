@@ -1,25 +1,13 @@
-import { JwtHelper, tokenNotExpired } from 'angular2-jwt';
+import { DataService } from './data.service';
+import { JwtHelper, tokenNotExpired, AuthHttp } from 'angular2-jwt';
 import { Injectable } from '@angular/core';
 import { Http } from '@angular/http';
 import 'rxjs/add/operator/map';
 
 @Injectable()
-export class AuthService {
-  constructor(private http: Http) {
-  }
-
-  login(credentials) {
-   return this.http.post('http://localhost:3000/api/users/login',
-      credentials).map( response => {
-        const result = response.json();
-        if ( result && result.token) {
-          console.log('Token: ' + response.json().token);
-          localStorage.setItem('token', result.token)
-          return true
-        }
-
-        return false;
-      });
+export class AuthService extends DataService {
+  constructor(authHttp: AuthHttp, http: Http) {
+    super('http://localhost:3000/api/users/login', authHttp, http);
   }
 
   logout() {

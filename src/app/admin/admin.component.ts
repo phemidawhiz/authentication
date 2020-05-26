@@ -9,10 +9,13 @@ import { Component, OnInit } from '@angular/core';
 export class AdminComponent implements OnInit {
   users: any[];
 
-  constructor(private orderService: OrderService) { }
+  constructor(private service: OrderService) { }
 
   ngOnInit() {
-    this.orderService.getUsers()
-      .subscribe(response => this.users = response);
+    this.service.getAll()
+      .subscribe(response => {
+        this.users = response.json().data;
+        console.log(this.users);
+      });
   }
 }
