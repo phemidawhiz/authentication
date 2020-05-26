@@ -8,8 +8,7 @@ import { NgModule, ErrorHandler } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { HttpModule, Http, BaseRequestOptions } from '@angular/http';
 import { RouterModule } from '@angular/router';
-import { AuthHttp, AUTH_PROVIDERS, provideAuth, AuthConfig } from 
-    'angular2-jwt/angular2-jwt';
+import { AuthHttp, AUTH_PROVIDERS, provideAuth, AuthConfig } from 'angular2-jwt/angular2-jwt';
 
 import { AppComponent } from './app.component';
 import { HomeComponent } from './home/home.component';
@@ -18,6 +17,7 @@ import { SignupComponent } from './signup/signup.component';
 import { AdminComponent } from './admin/admin.component';
 import { NotFoundComponent } from './not-found/not-found.component';
 import { NoAccessComponent } from './no-access/no-access.component';
+import { LoginAuthGuard } from './services/login-guard.service';
 
 @NgModule({
   declarations: [
@@ -40,7 +40,11 @@ import { NoAccessComponent } from './no-access/no-access.component';
         component: AdminComponent,
         canActivate: [AuthGuard, AdminAuthGuard]
       },
-      { path: 'login', component: LoginComponent },
+      {
+        path: 'login',
+        component: LoginComponent,
+        canActivate: [LoginAuthGuard]
+      },
       { path: 'no-access', component: NoAccessComponent }
     ])
   ],
@@ -49,6 +53,7 @@ import { NoAccessComponent } from './no-access/no-access.component';
     OrderService,
     AuthGuard,
     AdminAuthGuard,
+    LoginAuthGuard,
     AuthService,
     { provide: ErrorHandler, useClass: AppErrorHandler },
     BaseRequestOptions
