@@ -1,3 +1,4 @@
+import { AdminAuthGuard } from './services/admin-auth-guard.service';
 import { AuthGuard } from './services/auth-guard.service';
 import { AuthHttp, AUTH_PROVIDERS, provideAuth, AuthConfig } from 'angular2-jwt/angular2-jwt';
 import { OrderService } from './services/order.service';
@@ -37,7 +38,7 @@ import { NoAccessComponent } from './no-access/no-access.component';
       {
         path: 'admin',
         component: AdminComponent,
-        canActivate: [AuthGuard]
+        canActivate: [AuthGuard, AdminAuthGuard]
       },
       { path: 'login', component: LoginComponent },
       { path: 'no-access', component: NoAccessComponent }
@@ -46,6 +47,7 @@ import { NoAccessComponent } from './no-access/no-access.component';
   providers: [
     OrderService,
     AuthGuard,
+    AdminAuthGuard,
     AuthService,
     BaseRequestOptions
   ],

@@ -1,15 +1,34 @@
-import { Http } from '@angular/http';
+import { AuthHttp } from 'angular2-jwt';
+import { Http, RequestOptions, Headers } from '@angular/http';
 import { Injectable } from '@angular/core';
 import 'rxjs/add/operator/map';
 
 @Injectable()
 export class OrderService {
 
-  constructor(private http: Http) {
+  // Angular shortcut
+  constructor(private authHttp: AuthHttp) {
   }
 
-  getOrders() { 
-    return this.http.get('/api/orders')
-      .map(response => response.json());
+  getUsers() {
+    return this.authHttp.get('http://localhost:3000/api/users/')
+      .map(response => {
+        response.json();
+      });
   }
+
+  // What's happening under the hood
+  /* constructor(private http: Http) {
+  }
+
+  getUsers() {
+    const headers = new Headers();
+    headers.append('Authorisation', 'Bearer' + localStorage.getItem('token'));
+
+    const options = new RequestOptions({ headers: headers });
+    return this.http.get('http://localhost:3000/api/users/', options)
+      .map(response => {
+        response.json();
+      });
+  } */
 }
