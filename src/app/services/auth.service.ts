@@ -1,3 +1,4 @@
+import { environment } from './../../environments/environment';
 import { DataService } from './data.service';
 import { JwtHelper, tokenNotExpired, AuthHttp } from 'angular2-jwt';
 import { Injectable } from '@angular/core';
@@ -7,7 +8,7 @@ import 'rxjs/add/operator/map';
 @Injectable()
 export class AuthService extends DataService {
   constructor(authHttp: AuthHttp, http: Http) {
-    super('http://localhost:3000/api/users/login', authHttp, http);
+    super(environment.baseAPIDomain + '/api/users/login', authHttp, http);
   }
 
   logout() {
